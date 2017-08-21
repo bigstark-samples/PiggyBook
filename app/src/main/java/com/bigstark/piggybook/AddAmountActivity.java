@@ -145,10 +145,10 @@ public class AddAmountActivity extends AppCompatActivity {
                 hour = i;
                 minute = i1;
 
-                tvDate.setText(String.format("%2d월%2d일 %2d시 %2d분", month + 1, date, hour, minute));
+                tvDate.setText(String.format("%02d월 %02d일 %02d시 %02d분", month + 1, date, hour, minute));
                 try {
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    Date payTime = format.parse(String.format("%4d-%2d-%2d %2d:%2d", year, month + 1, date, hour, minute));
+                    Date payTime = format.parse(String.format("%04d-%02d-%02d %02d:%02d", year, month + 1, date, hour, minute));
                     amount.setDate(payTime);
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -157,5 +157,6 @@ public class AddAmountActivity extends AppCompatActivity {
             }
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false);
         dialog.show();
+
     }
 }
