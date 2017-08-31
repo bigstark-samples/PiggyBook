@@ -1,10 +1,13 @@
 package com.bigstark.piggybook;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,10 @@ import android.view.ViewGroup;
  */
 
 public class AmountFragment extends Fragment implements View.OnClickListener {
+
+    public static final int REQUEST_ADD = 1000;
+
+    private AmountAdapter adapter;
 
     @Nullable
     @Override
@@ -27,6 +34,12 @@ public class AmountFragment extends Fragment implements View.OnClickListener {
 
         FloatingActionButton fab = view.findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(this);
+
+        RecyclerView rvAmount = view.findViewById(R.id.rvAmount);
+        rvAmount.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
+        adapter = new AmountAdapter();
+        rvAmount.setAdapter(adapter);
     }
 
     @Override
@@ -34,8 +47,18 @@ public class AmountFragment extends Fragment implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.floatingActionButton:
                 Intent intent = new Intent(getContext(), AddAmountActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_ADD);
                 break;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_ADD && resultCode == Activity.RESULT_OK) {
+            adapter.update();
+        }
+
+
     }
 }

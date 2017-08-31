@@ -23,7 +23,6 @@ public class Converters {
         return TextUtils.isEmpty(value) ? null : AmountCategory.valueOf(value);
     }
 
-
     @TypeConverter
     public static String categoryToString(AmountCategory category) {
         return category == null ? null : category.name();

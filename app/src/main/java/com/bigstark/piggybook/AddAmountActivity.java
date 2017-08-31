@@ -99,6 +99,7 @@ public class AddAmountActivity extends AppCompatActivity {
 
                 PiggyDatabase.getInstance().amountDao().insertAll(amount);
                 Toast.makeText(AddAmountActivity.this, "저장 완료했습니다.", Toast.LENGTH_SHORT).show();
+                setResult(RESULT_OK);
                 finish();
             }
         });
