@@ -149,7 +149,8 @@ public class AddAmountActivity extends AppCompatActivity {
                 tvDate.setText(String.format("%02d월 %02d일 %02d시 %02d분", month + 1, date, hour, minute));
                 try {
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                    Date payTime = format.parse(String.format("%04d-%02d-%02d %02d:%02d", year, month + 1, date, hour, minute));
+                    String dateString = String.format("%04d-%02d-%02d %02d:%02d", year, month + 1, date, hour, minute);
+                    Date payTime = format.parse(dateString);
                     amount.setDate(payTime);
                 } catch (ParseException e) {
                     e.printStackTrace();

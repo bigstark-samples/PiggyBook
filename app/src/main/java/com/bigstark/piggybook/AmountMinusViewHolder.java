@@ -1,5 +1,6 @@
 package com.bigstark.piggybook;
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -20,8 +21,24 @@ public class AmountMinusViewHolder extends RecyclerView.ViewHolder {
     private TextView tvDate;
     private TextView tvAmount;
 
+    private Amount data;
+
     public AmountMinusViewHolder(View itemView) {
         super(itemView);
+
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (data == null) {
+                    return;
+                }
+
+                Intent intent = new Intent(view.getContext(), AmountDetailActivity.class);
+                intent.putExtra("amountId", data.getId());
+                view.getContext().startActivity(intent);
+            }
+        });
+
 
         tvContent = itemView.findViewById(R.id.tvContent);
         tvDate = itemView.findViewById(R.id.tvDate);
@@ -29,6 +46,8 @@ public class AmountMinusViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindItem(Amount data) {
+        this.data = data;
+
         tvContent.setText(data.getContent());
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         tvDate.setText(sdf.format(data.getDate()));
